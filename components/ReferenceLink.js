@@ -9,7 +9,7 @@ import Relay from 'react-relay';
 
 import {createContainer} from 'recompose-relay';
 import {compose} from 'recompose';
-import {dashboardRoute} from '../navigatorRoutes';
+import {uaNodeRoute} from '../navigatorRoutes';
 import Button from 'react-native-button'
 
 
@@ -59,7 +59,7 @@ const frags =  {
 
 
 const getNav = (navigator, nodeId)=>
-  ()=> navigator.push(dashboardRoute(nodeId));
+  ()=> navigator.push(uaNodeRoute(nodeId));
 
 const ReferenceLink = compose(createContainer(frags))
   (({referenceDescription, navigator})=> (

@@ -17,38 +17,28 @@ import {compose} from 'recompose';
 
 import ReferenceLinks from './ReferenceLinks';
 
+import Carousel from 'react-native-spring-carousel';
+
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+
+
+
 var styles = StyleSheet.create({
   container: {
+    width: 375,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 20,
-    backgroundColor:'orange'
-  },
-  nodeStyle : {
-    flex:1,
-     fontSize: 19,
-     fontWeight: 'bold',
-     justifyContent: 'center',
-     alignItems: 'center'
-  },
-  nodePane : {
-    flex:1,
-     justifyContent: 'center',
-     alignItems: 'center'
+    backgroundColor: 'transparent'
   }
 });
 
 
-const frags =  {
+const frags = (SubComponents)  => ({
   fragments: {
     uaNode: ()=> Relay.QL`
       fragment on UANode {
-        displayName {
-          text
-        }
-        description {
-          text
-        }
+        ${SubComponents.map(s=>s.getFragment('uaNode'))}
         backwardReferences: references(first:10 browseDirection: Inverse) {
           edges {
             ${ReferenceLinks.getFragment('referenceDescriptions')}
@@ -62,32 +52,27 @@ const frags =  {
       }
     `
   }
-}
+});
 
-const UANode = compose(createContainer(frags))
-  (({uaNode, navigator})=>
-    
-    <ScrollView>
-      <View >
-        <ReferenceLinks
-          referenceDescriptions= {uaNode.backwardReferences.edges}
-          navigator={navigator}
-          header={<Text>&lt;&lt;</Text>}/>
-        <View style={styles.nodePane}>
-          <Text
-            style = {styles.nodeStyle}>
-            {uaNode.displayName.text}
-          </Text>
-          <Text>
-            {uaNode.description ? uaNode.description.text : ''}
-          </Text>
+const UANode = (SubComponents) =>
+  compose(createContainer(frags(SubComponents)))
+    (({uaNode, navigator})=>
+      
+      <ScrollView>
+        <View >
+          <ReferenceLinks
+            referenceDescriptions= {uaNode.backwardReferences.edges}
+            navigator={navigator}
+            header={<Text>&lt;&lt;</Text>}/>
+            
+            {SubComponents.map((S, i)=> <S key={i} uaNode={uaNode} navigator={navigator}/>)}
+
+          <ReferenceLinks
+            referenceDescriptions= {uaNode.forwardReferences.edges}
+            navigator={navigator}
+            header={<Text>&gt;&gt;</Text>}/>
         </View>
-        <ReferenceLinks
-          referenceDescriptions= {uaNode.forwardReferences.edges}
-          navigator={navigator}
-          header={<Text>&gt;&gt;</Text>}/>
-      </View>
-    </ScrollView>
-  );
+      </ScrollView>
+    );
 
 export default UANode
