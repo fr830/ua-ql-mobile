@@ -2,8 +2,7 @@
 import React, {
   StyleSheet,
   Text,
-  View,
-  TouchableHighlight
+  View
 } from 'react-native';
 
 import Relay from 'react-relay';
@@ -20,11 +19,22 @@ var styles = StyleSheet.create({
     flex:1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-
-    
+    alignItems: 'center'
+  },
+  containerStyle: {
+    padding: 10,
+    height: 45,
+    overflow: 'hidden',
+    borderRadius:4,
+    backgroundColor: '#FFFF00'
+  },
+  style: {
+    fontSize: 20,
+    color: 'green'
   }
 });
+
+// #FFFF00
 
 
 const frags =  {
@@ -52,13 +62,12 @@ const getNav = (navigator, nodeId)=>
   ()=> navigator.push(dashboardRoute(nodeId));
 
 const ReferenceLink = compose(createContainer(frags))
-  (({referenceDescription, navigator})=>
+  (({referenceDescription, navigator})=> (
     <View style={styles.row}>
-      
-      <Button 
-        containerStyle ={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'antiquewhite'}}
-        style={{fontSize: 20, color: 'green'}}   
-        onPress={
+      <Button
+        containerStyle = {styles.containerStyle}
+        style = {styles.style}
+        onPress = {
           getNav(
           navigator,
           `ns=${
@@ -67,14 +76,10 @@ const ReferenceLink = compose(createContainer(frags))
             referenceDescription.uaNode.nodeId.value
           }`
         )}>
-        
            <Text >
              {referenceDescription.uaNode.displayName.text}
            </Text>
-
-   
       </Button>
     </View>
-  );
+  ));
 export default ReferenceLink
-

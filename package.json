@@ -28,7 +28,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-relay-plugin": "^0.7.3",
     "babel-relay-plugin-loader": "^0.7.3",
-    "eslint": "^2.6.0",
+    "eslint": "^2.7.0",
     "eslint-plugin-flowtype": "^2.2.2",
     "eslint-plugin-react": "^4.2.3"
   }

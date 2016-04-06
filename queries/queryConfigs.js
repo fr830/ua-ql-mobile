@@ -1,5 +1,4 @@
 
-
 import Relay from 'react-relay';
 
 export class UaNodeQuery extends Relay.Route {

@@ -22,11 +22,11 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 20,
-    backgroundColor:'orange',
+    backgroundColor:'orange'
   },
   nodeStyle : {
     flex:1,
-     fontSize: 19, 
+     fontSize: 19,
      fontWeight: 'bold',
      justifyContent: 'center',
      alignItems: 'center'
@@ -64,14 +64,13 @@ const frags =  {
   }
 }
 
-
 const UANode = compose(createContainer(frags))
   (({uaNode, navigator})=>
     
     <ScrollView>
       <View >
-        <ReferenceLinks 
-          referenceDescriptions= {uaNode.backwardReferences.edges} 
+        <ReferenceLinks
+          referenceDescriptions= {uaNode.backwardReferences.edges}
           navigator={navigator}
           header={<Text>&lt;&lt;</Text>}/>
         <View style={styles.nodePane}>
@@ -84,15 +83,11 @@ const UANode = compose(createContainer(frags))
           </Text>
         </View>
         <ReferenceLinks
-          referenceDescriptions= {uaNode.forwardReferences.edges} 
+          referenceDescriptions= {uaNode.forwardReferences.edges}
           navigator={navigator}
           header={<Text>&gt;&gt;</Text>}/>
       </View>
     </ScrollView>
   );
 
-
-
-
 export default UANode
-
