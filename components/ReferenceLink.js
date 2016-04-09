@@ -60,7 +60,7 @@ const frags =  {
 
 
 const getNav = (navigator, nodeId)=>
-  ()=> navigator.push(uaNodeRoute(nodeId));
+  ()=> navigator.replace(uaNodeRoute(nodeId));
 
 const ReferenceLink = compose(createContainer(frags))
   (({referenceDescription, navigator})=> (
