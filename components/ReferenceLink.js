@@ -10,7 +10,8 @@ import Relay from 'react-relay';
 import {createContainer} from 'recompose-relay';
 import {compose} from 'recompose';
 import {uaNodeRoute} from '../navigatorRoutes';
-import Button from 'react-native-button'
+import Button from 'react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 
@@ -64,6 +65,7 @@ const getNav = (navigator, nodeId)=>
 const ReferenceLink = compose(createContainer(frags))
   (({referenceDescription, navigator})=> (
     <View style={styles.row}>
+    <Icon name="rocket" size={30} color="#900" />
       <Button
         containerStyle = {styles.containerStyle}
         style = {styles.style}
