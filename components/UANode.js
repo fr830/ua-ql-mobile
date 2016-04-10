@@ -28,8 +28,12 @@ const SideMenu = require('react-native-side-menu');
 var styles = StyleSheet.create({
   container: {
     //width: 375,
-    //flex: 1,
+    flex: 1,
     backgroundColor: 'purple'
+  },
+  supercontainer: {
+    flex:1,
+    backgroundColor: 'green'
   }
 });
 
@@ -58,46 +62,47 @@ const frags = (SubComponents)  => ({
 
 
 
-const UANode = (SubComponents) =>
-  compose(
-    createContainer(frags(SubComponents)) ,
-    withState('menuLeft', 'setMenuLeft', false),
-    withState('menuRight', 'setMenuRight', false),
-    withState('menuLeftStart', 'setMenuLeftStart', false),
-    withState('menuRightStart', 'setMenuRightStart', false)
-    
-  )
-    (({uaNode, navigator, menuLeft, setMenuLeft, menuRight, setMenuRight, menuRightStart, setMenuRightStart, menuLeftStart, setMenuLeftStart})=>
-      <SideMenu
-        menuPosition='left'
-        onChange= {setMenuLeft}
-        onStartOpen = {()=>setMenuLeftStart(true)}
-        isOpen={menuLeft}
-        menu={
-          <BackwardMenu
-            display={menuLeftStart}          
-            uaNode= {uaNode}
-            navigator={navigator}/>
-        }>
-        <SideMenu
-          menuPosition='right'
-          onChange= {setMenuRight}
-          onStartOpen = {()=>setMenuRightStart(true)}
-          isOpen={menuRight}
-          menu={
-            <ForwardMenu
-              display={menuRightStart}
-            
-              uaNode= {uaNode}
-              navigator={navigator}/>
-            }>
-          <ScrollView>
-            <View style = {styles.container}>
-              {SubComponents.map((S, i)=> <S key={i} uaNode={uaNode} navigator={navigator}/>)}
+const UANode = (globalMenuState)=>{
+  return (SubComponents) => {
+    return compose(
+      createContainer(frags(SubComponents)) ,
+      withState('menuRightStart', 'setMenuRightStart', false),
+      withState('menuLeftStart', 'setMenuLeftStart', false)
+    )
+      (({uaNode, navigator, menuRightStart, setMenuRightStart, menuLeftStart, setMenuLeftStart})=> {
+       return <SideMenu
+            menuPosition='right'
+            onChange= {globalMenuState.setMenuRight}
+            onStartOpen = {()=>setMenuRightStart(true)}
+            isOpen={globalMenuState.menuRightIsOpen}
+            menu={
+              <ForwardMenu
+                display={menuRightStart || globalMenuState.menuRightIsOpen}
+                uaNode= {uaNode}
+                navigator={navigator}/>
+              }>
+              <SideMenu
+              menuPosition='left'
+              onChange= {globalMenuState.setMenuLeft}
+              onStartOpen = {()=>setMenuLeftStart(true)}
+              isOpen={globalMenuState.menuLeftIsOpen}
+              menu={
+                <BackwardMenu
+                  display={menuLeftStart || globalMenuState.menuLeftIsOpen}
+                  uaNode= {uaNode}
+                  navigator={navigator}/>
+                }>
+             <View style = {styles.supercontainer}>
+              <ScrollView style={{flex:1}}>
+                <View style = {styles.container}>
+                  {SubComponents.map((S, i)=> <S key={i} uaNode={uaNode} navigator={navigator}/>)}
+                </View>
+              </ScrollView>
             </View>
-          </ScrollView>
+          </SideMenu>
         </SideMenu>
-      </SideMenu>
-    );
-
+        
+      });
+  }
+};
 export default UANode

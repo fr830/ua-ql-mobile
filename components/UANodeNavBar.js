@@ -88,15 +88,15 @@ const getNav = (navigator, nodeId)=>
   (el)=> {
     switch(el.props.name) {
       case 'first':
-        return navigator.push(uaNodeRoute(nodeId));
+        return navigator.replace(uaNodeRoute(nodeId));
       case 'second':
-        return navigator.push(uaNodeRoute1(nodeId));
+        return navigator.replace(uaNodeRoute1(nodeId));
       case 'third':
-        return navigator.push(uaNodeRoute2(nodeId));
+        return navigator.replace(uaNodeRoute2(nodeId));
       case 'fourth':
-        return navigator.push(uaNodeRoute3(nodeId));
+        return navigator.replace(uaNodeRoute3(nodeId));
       case 'fifth':
-        return navigator.push(uaNodeRoute4(nodeId));
+        return navigator.replace(uaNodeRoute4(nodeId));
     }
   }
     

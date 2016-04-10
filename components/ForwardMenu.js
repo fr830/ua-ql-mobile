@@ -59,9 +59,10 @@ const Menu =
          return uaNode.forwardReferences
           ? <ScrollView style={styles.menu}> 
               <ReferenceLinks
-                  referenceDescriptions = {uaNode.forwardReferences.edges}
-                  navigator = {navigator}
-                  header = {<Text>&lt;&lt;</Text>}/>
+                alignItems =  'flex-end'
+                referenceDescriptions = {uaNode.forwardReferences.edges}
+                navigator = {navigator}
+                header = {<Text>&lt;&lt;</Text>}/>
            </ScrollView>
           : <View/>
        }

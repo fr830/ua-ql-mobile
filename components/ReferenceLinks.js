@@ -27,8 +27,7 @@ var styles = StyleSheet.create({
   },
   listViewContent: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems:'center'
+    alignItems:'flex-start'
   },
   separator: {
     height: 1,
@@ -52,12 +51,12 @@ const frags =  {
 const lv = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
 const ReferenceLinks = compose(createContainer(frags))
-  (({referenceDescriptions, navigator, header})=>
+  (({referenceDescriptions, navigator, header, alignItems})=>
     <ListView
       renderHeader={()=><View>{header}</View>}
       //renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
       style={styles.listView}
-      contentContainerStyle={styles.listViewContent}
+      contentContainerStyle={[styles.listViewContent, {alignItems: alignItems} ]}
       dataSource = {lv.cloneWithRows(referenceDescriptions)}
       renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
       renderRow = {(row)=>

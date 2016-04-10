@@ -59,9 +59,10 @@ const Menu =
          return uaNode.backwardReferences
           ? <ScrollView style={styles.menu}> 
               <ReferenceLinks
-                  referenceDescriptions = {uaNode.backwardReferences.edges}
-                  navigator = {navigator}
-                  header = {<Text>&lt;&lt;</Text>}/>
+                alignItems =  'flex-start'
+                referenceDescriptions = {uaNode.backwardReferences.edges}
+                navigator = {navigator}
+                header = {<Text>&lt;&lt;</Text>}/>
            </ScrollView>
           : <View/>
        }
