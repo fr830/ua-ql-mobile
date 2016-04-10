@@ -9,9 +9,7 @@ import React, {
   Navigator
 } from 'react-native';
 
-  
-import relayRenderScene from './util/relayRenderScene';
-
+ import relayRenderScene from './util/relayRenderScene';
 
 import {uaNodeRoute} from './navigatorRoutes';
 
@@ -27,6 +25,7 @@ export default class MyApp extends Component {
 
     // Just imagine we're getting loggedInUserID from some other part of the app.
     const initialRoute = uaNodeRoute('ns=4;i=1240');
+    
 
     return (
       <Navigator

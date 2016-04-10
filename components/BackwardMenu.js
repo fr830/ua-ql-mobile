@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
 
 const frags =  {
   initialVariables: {
-    'display': undefined
+    'dodisplay': false
   },
   fragments: {
     uaNode: ()=> Relay.QL`
       fragment on UANode {
-        backwardReferences: references(first:10 browseDirection: Inverse) @include(if: $display) {
+        backwardReferences: references(first:10 browseDirection: Inverse) @include(if: $dodisplay) {
           edges {
             ${ReferenceLinks.getFragment('referenceDescriptions')}
           }
@@ -43,29 +43,28 @@ const frags =  {
     `
   }
 }
-var x = 1;
 const Menu =
   compose(
-    createContainer(frags)
-    /*,
-    doOnReceiveProps(({relay, uaNode, display})=>{
-     console.log('recieving props ' + x++);
-      if(false && display) {
+    createContainer(frags),
+    doOnReceiveProps(({relay, display})=>{
+      if(display && display !== relay.variables.dodisplay) {
         relay.setVariables({
-          'display': display
+          'dodisplay': display
         });
       }
-    })*/
+    })
     )
     (({uaNode, navigator})=>
-      <ScrollView scrollsToTop={false} style={styles.menu}>
-        {uaNode.backwardReferences
-          ? <ReferenceLinks
-              referenceDescriptions = {uaNode.backwardReferences.edges}
-              navigator = {navigator}
-              header = {<Text>&lt;&lt;</Text>}/>
-          : <View/>}
-      </ScrollView>
+      {
+         return uaNode.backwardReferences
+          ? <ScrollView style={styles.menu}> 
+              <ReferenceLinks
+                  referenceDescriptions = {uaNode.backwardReferences.edges}
+                  navigator = {navigator}
+                  header = {<Text>&lt;&lt;</Text>}/>
+           </ScrollView>
+          : <View/>
+       }
   );
 
 

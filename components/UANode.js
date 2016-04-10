@@ -12,16 +12,15 @@ import React, {
 
 import Relay from 'react-relay';
 
-import Menu from './Menu';
+import ForwardMenu from './ForwardMenu';
+import BackwardMenu from './BackwardMenu';
+
 
 import {createContainer} from 'recompose-relay';
-import {compose} from 'recompose';
+import {compose,  withState} from 'recompose';
 
 import ReferenceLinks from './ReferenceLinks';
 
-import Carousel from 'react-native-spring-carousel';
-
-import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 const SideMenu = require('react-native-side-menu');
 
@@ -30,8 +29,6 @@ var styles = StyleSheet.create({
   container: {
     //width: 375,
     //flex: 1,
-    //justifyContent: 'center',
-    //alignItems: 'center',
     backgroundColor: 'purple'
   }
 });
@@ -41,7 +38,8 @@ const frags = (SubComponents)  => ({
   fragments: {
     uaNode: ()=> Relay.QL`
       fragment on UANode {
-        ${Menu.getFragment('uaNode')}
+        ${ForwardMenu.getFragment('uaNode')}
+        ${BackwardMenu.getFragment('uaNode')}
         ${SubComponents.map(s=>s.getFragment('uaNode'))}
         backwardReferences: references(first:10 browseDirection: Inverse) {
           edges {
@@ -58,37 +56,44 @@ const frags = (SubComponents)  => ({
   }
 });
 
+
+
 const UANode = (SubComponents) =>
-  compose(createContainer(frags(SubComponents)))
-    (({uaNode, navigator})=>
+  compose(
+    createContainer(frags(SubComponents)) ,
+    withState('menuLeft', 'setMenuLeft', false),
+    withState('menuRight', 'setMenuRight', false),
+    withState('menuLeftStart', 'setMenuLeftStart', false),
+    withState('menuRightStart', 'setMenuRightStart', false)
+    
+  )
+    (({uaNode, navigator, menuLeft, setMenuLeft, menuRight, setMenuRight, menuRightStart, setMenuRightStart, menuLeftStart, setMenuLeftStart})=>
       <SideMenu
         menuPosition='left'
+        onChange= {setMenuLeft}
+        onStartOpen = {()=>setMenuLeftStart(true)}
+        isOpen={menuLeft}
         menu={
-          <Menu
-            //display={true}
+          <BackwardMenu
+            display={menuLeftStart}          
             uaNode= {uaNode}
             navigator={navigator}/>
         }>
         <SideMenu
           menuPosition='right'
+          onChange= {setMenuRight}
+          onStartOpen = {()=>setMenuRightStart(true)}
+          isOpen={menuRight}
           menu={
-            <Menu
+            <ForwardMenu
+              display={menuRightStart}
+            
               uaNode= {uaNode}
               navigator={navigator}/>
             }>
           <ScrollView>
             <View style = {styles.container}>
-              <ReferenceLinks
-                referenceDescriptions= {uaNode.backwardReferences.edges}
-                navigator={navigator}
-                header={<Text>&lt;&lt;</Text>}/>
-                
-                {SubComponents.map((S, i)=> <S key={i} uaNode={uaNode} navigator={navigator}/>)}
-
-              <ReferenceLinks
-                referenceDescriptions= {uaNode.forwardReferences.edges}
-                navigator={navigator}
-                header={<Text>&gt;&gt;</Text>}/>
+              {SubComponents.map((S, i)=> <S key={i} uaNode={uaNode} navigator={navigator}/>)}
             </View>
           </ScrollView>
         </SideMenu>
