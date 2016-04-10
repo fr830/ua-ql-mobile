@@ -23,6 +23,7 @@ import MyApp from './MyApp';
 Relay.injectNetworkLayer(
   new Relay.DefaultNetworkLayer('https://ua-ql.herokuapp.com/graphql')
 );
+
 /**
  * For quota reasons we replaced the Rotten Tomatoes' API with a sample data of
  * their very own API that lives in React Native's Github repo.

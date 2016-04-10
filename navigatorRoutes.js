@@ -2,6 +2,7 @@ import * as queryConfigs from './queries/queryConfigs';
 import UANode from './components/UANode';
 import UANodeName from './components/UANodeName';
 import UANodeDescription from './components/UANodeDescription';
+import DataValue from './components/DataValue';
 import UANodeNavBar from './components/UANodeNavBar';
 import BackwardMenu from './components/BackwardMenu';
 import ForwardMenu from './components/ForwardMenu';
@@ -49,7 +50,8 @@ export function uaNodeRoute1(nodeId) {
     	[
     		UANodeNavBar(nodeId, 'second'),
     		UANodeName,
-    		UANodeDescription
+    		UANodeDescription,
+        DataValue
     		
     	]
     ),
