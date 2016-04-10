@@ -3,7 +3,8 @@ import UANode from './components/UANode';
 import UANodeName from './components/UANodeName';
 import UANodeDescription from './components/UANodeDescription';
 import UANodeNavBar from './components/UANodeNavBar';
-
+import BackwardMenu from './components/BackwardMenu';
+import ForwardMenu from './components/ForwardMenu';
 
 
 const globalMenuState = {
@@ -77,7 +78,8 @@ export function uaNodeRoute3(nodeId) {
     	[
     		UANodeNavBar(nodeId, 'fourth'),
     		UANodeName,
-    		UANodeDescription
+    		UANodeDescription,
+        BackwardMenu
     		
     	]
     ),
@@ -92,7 +94,8 @@ export function uaNodeRoute4(nodeId) {
     	[
     		UANodeNavBar(nodeId, 'fifth'),
     		UANodeName,
-    		UANodeDescription
+    		UANodeDescription,
+        ForwardMenu
     		
     	]
     ),

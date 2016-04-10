@@ -11,6 +11,14 @@ import React, {
   View
 } from 'react-native';
 
+import Relay from 'react-relay';
+
+import MyApp from './MyApp';
+
+Relay.injectNetworkLayer(
+  new Relay.DefaultNetworkLayer('https://ua-ql.herokuapp.com/graphql')
+);
+
 class AwesomeProject extends Component {
   render() {
     return (
@@ -19,7 +27,7 @@ class AwesomeProject extends Component {
           Welcome to React Native!
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.android.js
+          To get started, edit index.android.js!!
         </Text>
         <Text style={styles.instructions}>
           Shake or press menu button for dev menu
@@ -48,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+AppRegistry.registerComponent('AwesomeProject', () => MyApp);
