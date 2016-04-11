@@ -59,11 +59,11 @@ const frags =  {
 
 
 
-const getNav = (navigator, nodeId)=>
-  ()=> navigator.replace(uaNodeRoute(nodeId));
+const getNav = (navigator, nodeId, routeFunc)=>
+  ()=> navigator.replace(routeFunc(nodeId));
 
 const ReferenceLink = compose(createContainer(frags))
-  (({referenceDescription, navigator})=> (
+  (({referenceDescription, navigator, routeFunc})=> (
     <View style={styles.row}>
     <Icon name="rocket" size={30} color="#900" />
       <Button
@@ -76,7 +76,8 @@ const ReferenceLink = compose(createContainer(frags))
             referenceDescription.uaNode.nodeId.namespace
           };i=${
             referenceDescription.uaNode.nodeId.value
-          }`
+          }`,
+          routeFunc
         )}>
            <Text >
              {referenceDescription.uaNode.displayName.text}

@@ -6,6 +6,7 @@ import DataValue from './components/DataValue';
 import UANodeNavBar from './components/UANodeNavBar';
 import BackwardMenu from './components/BackwardMenu';
 import ForwardMenu from './components/ForwardMenu';
+import Mimic from './components/Mimic';
 
 
 const globalMenuState = {
@@ -65,7 +66,8 @@ export function uaNodeRoute2(nodeId) {
     Component: MyUANode(
     	[
     		UANodeNavBar(nodeId, 'third'),
-    		UANodeName
+    		UANodeName,
+        Mimic
     		
     	]
     ),

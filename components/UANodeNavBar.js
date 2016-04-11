@@ -78,7 +78,7 @@ const frags =  {
   fragments: {
     uaNode: ()=> Relay.QL`
       fragment on UANode {
-        id
+        nodeClass
       }
     `
   }
@@ -112,7 +112,7 @@ const UANodeNavBar = (nodeId, selected)=> compose(createContainer(frags))
                 nodeId
               )
             }>
-            <Text name="first">First</Text>
+            <Text name="first">{uaNode.nodeClass}</Text>
             <Text name="second" selectedIconStyle={{borderTopWidth:2,borderTopColor:'red'}}>Second</Text>
             <Text name="third">Third</Text>
             <Text name="fourth" selectedStyle={{color:'green'}}>Fourth</Text>

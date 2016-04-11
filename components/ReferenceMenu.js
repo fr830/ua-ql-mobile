@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const ReferenceMenu = (frags, align)=>
+const ReferenceMenu = (frags, align, routeFunc)=>
   compose(
     createContainer(frags(ReferenceLinks)),
     doOnReceiveProps(({relay, display})=>{
@@ -52,6 +52,7 @@ const ReferenceMenu = (frags, align)=>
                 alignItems =  {align}
                 referenceDescriptions = {uaNode.references.edges}
                 navigator = {navigator}
+                routeFunc={routeFunc}
                 header = {<Text>&lt;&lt;</Text>}/>
            </ScrollView>
           : <View/>

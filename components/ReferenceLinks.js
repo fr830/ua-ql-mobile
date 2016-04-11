@@ -51,7 +51,7 @@ const frags =  {
 const lv = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
 const ReferenceLinks = compose(createContainer(frags))
-  (({referenceDescriptions, navigator, header, alignItems})=>
+  (({referenceDescriptions, navigator, header, alignItems, routeFunc})=>
     <ListView
       renderHeader={()=><View>{header}</View>}
       //renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
@@ -62,6 +62,7 @@ const ReferenceLinks = compose(createContainer(frags))
       renderRow = {(row)=>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <ReferenceLink
+            routeFunc={routeFunc}
             referenceDescription={row.node}
             navigator={navigator}/>
         </View>
