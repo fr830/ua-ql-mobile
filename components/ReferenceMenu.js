@@ -20,9 +20,7 @@ const window = Dimensions.get('window');
 const styles = StyleSheet.create({
   menu: {
     flex: 1,
-    width: window.width,
-    height: window.height,
-    backgroundColor: 'gray',
+    //backgroundColor: 'gray',
     padding: 20
   }
 });

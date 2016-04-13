@@ -1,36 +1,22 @@
-
 import React, {
-  AppRegistry,
-  Component,
-  Image,
   StyleSheet,
   Text,
   View,
-  ListView,
-  ScrollView
 } from 'react-native';
 
 import Relay from 'react-relay';
-
 import {createContainer} from 'recompose-relay';
 import {compose} from 'recompose';
 
-
 var styles = StyleSheet.create({
-  nodeStyle : {
-    flex:1,
-     fontSize: 19,
-     fontWeight: 'bold',
-     justifyContent: 'center',
-     alignItems: 'center'
+  textStyle : {
+    fontSize: 19,
+    fontWeight: 'bold'
   },
-  nodePane : {
-    flex:1,
-     justifyContent: 'center',
-     alignItems: 'center'
+  viewStyle : {
+    alignItems: 'center'
   }
 });
-
 
 const frags =  {
   fragments: {
@@ -45,10 +31,11 @@ const frags =  {
 }
 
 const UANodeName = compose(createContainer(frags))
-  (({uaNode, navigator})=>
-    <View style={styles.nodePane}>
+  (({uaNode})=>
+    <View
+      style={styles.viewStyle}>
       <Text
-        style = {styles.nodeStyle}>
+        style = {styles.textStyle}>
         {uaNode.displayName.text}
       </Text>
     </View>
