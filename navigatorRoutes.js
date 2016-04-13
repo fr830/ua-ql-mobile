@@ -29,12 +29,14 @@ const globalMenuState = {
 }
 
 const MyUANode = UANode(globalMenuState);
+
 export function uaNodeRoute(nodeId) {
   return {
     title: 'UANode',
     Component: MyUANode(
     	[		
-    		UANodeNavBar(nodeId, 'first'),
+    		UANodeNavBar(nodeId, 'first')
+      ], [
     		UANodeName,
     		UANodeDescription
     	]
@@ -49,26 +51,26 @@ export function uaNodeRoute1(nodeId) {
     title: 'UANode1',
     Component: MyUANode(
     	[
-    		UANodeNavBar(nodeId, 'second'),
+    		UANodeNavBar(nodeId, 'second')
+       ], [
     		UANodeName,
     		UANodeDescription,
-        DataValue
-    		
+        Mimic
     	]
     ),
     queryConfig: new queryConfigs.UaNodeQuery({nodeId})
   };
 }
 
-export function uaNodeRoute2(nodeId) {
+export function uaNodeRouteVariable(nodeId) {
   return {
     title: 'UANode',
     Component: MyUANode(
     	[
-    		UANodeNavBar(nodeId, 'third'),
+    		UANodeNavBar(nodeId, 'third')
+      ], [
     		UANodeName,
-        Mimic
-    		
+        DataValue
     	]
     ),
     queryConfig: new queryConfigs.UaNodeQuery({nodeId})
@@ -80,7 +82,8 @@ export function uaNodeRoute3(nodeId) {
     title: 'UANode',
     Component: MyUANode(
     	[
-    		UANodeNavBar(nodeId, 'fourth'),
+    		UANodeNavBar(nodeId, 'fourth')
+      ], [
     		UANodeName,
     		UANodeDescription,
         BackwardMenu
@@ -96,7 +99,8 @@ export function uaNodeRoute4(nodeId) {
     title: 'UANode',
     Component: MyUANode(
     	[
-    		UANodeNavBar(nodeId, 'fifth'),
+    		UANodeNavBar(nodeId, 'fifth')
+       ], [
     		UANodeName,
     		UANodeDescription,
         ForwardMenu

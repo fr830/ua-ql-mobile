@@ -52,7 +52,7 @@ const lv = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
 const ReferenceLinks = compose(createContainer(frags))
   (({referenceDescriptions, navigator, header, alignItems, routeFunc})=> {
-    debugger;
+    //debugger;
     return <ListView
       renderHeader={()=><View>{header}</View>}
       //renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}

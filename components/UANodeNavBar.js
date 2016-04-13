@@ -16,7 +16,7 @@ import {createContainer} from 'recompose-relay';
 import {compose} from 'recompose';
 
 
-import {uaNodeRoute, uaNodeRoute1, uaNodeRoute2, uaNodeRoute3, uaNodeRoute4} from '../navigatorRoutes';
+import {uaNodeRoute, uaNodeRoute1, uaNodeRouteVariable, uaNodeRoute3, uaNodeRoute4} from '../navigatorRoutes';
 
 import Tabs from 'react-native-tabs';
 
@@ -76,6 +76,11 @@ var styles2 = StyleSheet.create({
 
 const frags =  {
   fragments: {
+    root: ()=> Relay.QL`
+      fragment on UANode {
+        nodeClass
+      }
+    `,
     uaNode: ()=> Relay.QL`
       fragment on UANode {
         nodeClass
@@ -91,8 +96,8 @@ const getNav = (navigator, nodeId)=>
         return navigator.replace(uaNodeRoute(nodeId));
       case 'second':
         return navigator.replace(uaNodeRoute1(nodeId));
-      case 'third':
-        return navigator.replace(uaNodeRoute2(nodeId));
+      case 'variable':
+        return navigator.replace(uaNodeRouteVariable(nodeId));
       case 'fourth':
         return navigator.replace(uaNodeRoute3(nodeId));
       case 'fifth':
@@ -102,7 +107,7 @@ const getNav = (navigator, nodeId)=>
     
 
 const UANodeNavBar = (nodeId, selected)=> compose(createContainer(frags))
-  (({uaNode, navigator})=>
+  (({root, uaNode, navigator})=>
     
       <Tabs selected={selected} style={{position: 'relative', flex:1, backgroundColor:'white'}}
             selectedStyle={{color:'red'}}
@@ -114,7 +119,7 @@ const UANodeNavBar = (nodeId, selected)=> compose(createContainer(frags))
             }>
             <Text name="first">{uaNode.nodeClass}</Text>
             <Text name="second" selectedIconStyle={{borderTopWidth:2,borderTopColor:'red'}}>Second</Text>
-            <Text name="third">Third</Text>
+            {uaNode.nodeClass==='Variable' ? <Text name="variable">Variable</Text> : null}
             <Text name="fourth" selectedStyle={{color:'green'}}>Fourth</Text>
             <Text name="fifth">Fifth</Text>
         </Tabs>
