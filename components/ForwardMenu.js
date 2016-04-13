@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 
 import ReferenceMenu from './ReferenceMenu';
 
-import {uaNodeRoute4} from '../navigatorRoutes';
+import {uaNodeRouteForward} from '../navigatorRoutes';
 
 
 const frags = (links) => ({
@@ -22,5 +22,5 @@ const frags = (links) => ({
     `
   }
 });
-const Menu = ReferenceMenu(frags, 'flex-end', uaNodeRoute4);
+const Menu = ReferenceMenu(frags, 'flex-end', uaNodeRouteForward);
 export default Menu

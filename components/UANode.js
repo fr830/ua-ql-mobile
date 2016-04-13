@@ -38,17 +38,16 @@ var styles = StyleSheet.create({
 });
 
 
-const frags = (RootSubComponents, SubComponents)  => ({
+const frags = (SubComponents)  => ({
   fragments: {
     root: ()=>Relay.QL`
       fragment on UANode {
         id
-        ${RootSubComponents.map(s=>s.getFragment('root'))}
+        ${SubComponents.filter(s=>s.root).map(s=>s.getFragment('root'))}
       }
     `,
     uaNode: ()=> Relay.QL`
       fragment on UANode {
-        ${RootSubComponents.map(s=>s.getFragment('uaNode'))}
         ${ForwardMenu.getFragment('uaNode')}
         ${BackwardMenu.getFragment('uaNode')}
         ${SubComponents.map(s=>s.getFragment('uaNode'))}
@@ -70,9 +69,9 @@ const frags = (RootSubComponents, SubComponents)  => ({
 
 
 const UANode = (globalMenuState)=>{
-  return (RootSubComponents, SubComponents) => {
+  return (SubComponents) => {
     return compose(
-      createContainer(frags(RootSubComponents, SubComponents)) ,
+      createContainer(frags(SubComponents)) ,
       withState('menuRightStart', 'setMenuRightStart', false),
       withState('menuLeftStart', 'setMenuLeftStart', false)
     )
@@ -102,8 +101,7 @@ const UANode = (globalMenuState)=>{
              <View style = {styles.supercontainer}>
               <ScrollView style={{flex:1}}>
                 <View style = {styles.container}>
-                  {RootSubComponents.map((S, i)=> <S key={i} root={root} uaNode={uaNode} navigator={navigator}/>)}
-                  {SubComponents.map((S, i)=> <S key={i} uaNode={uaNode} navigator={navigator}/>)}
+                  {SubComponents.map((S, i)=> <S key={i} root={root} uaNode={uaNode} navigator={navigator}/>)}
                 </View>
               </ScrollView>
             </View>

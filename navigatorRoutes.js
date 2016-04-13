@@ -1,6 +1,7 @@
 import * as queryConfigs from './queries/queryConfigs';
 import UANode from './components/UANode';
 import UANodeName from './components/UANodeName';
+import UANodeClass from './components/UANodeClass';
 import UANodeDescription from './components/UANodeDescription';
 import DataValue from './components/DataValue';
 import UANodeNavBar from './components/UANodeNavBar';
@@ -30,15 +31,16 @@ const globalMenuState = {
 
 const MyUANode = UANode(globalMenuState);
 
-export function uaNodeRoute(nodeId) {
+export function uaNodeRouteSummary(nodeId) {
   return {
-    title: 'UANode',
+    title: 'UANodeSummary',
     Component: MyUANode(
-    	[		
-    		UANodeNavBar(nodeId, 'first')
-      ], [
+    	[
+        UANodeNavBar(nodeId, 'summary'),
     		UANodeName,
+        UANodeClass,
     		UANodeDescription
+        
     	]
     ),
     queryConfig: new queryConfigs.UaNodeQuery({nodeId})
@@ -46,13 +48,12 @@ export function uaNodeRoute(nodeId) {
 }
 
 
-export function uaNodeRoute1(nodeId) {
+export function uaNodeRouteMimic(nodeId) {
   return {
-    title: 'UANode1',
+    title: 'UANodeMimic',
     Component: MyUANode(
     	[
-    		UANodeNavBar(nodeId, 'second')
-       ], [
+        UANodeNavBar(nodeId, 'mimic'),
     		UANodeName,
     		UANodeDescription,
         Mimic
@@ -64,11 +65,10 @@ export function uaNodeRoute1(nodeId) {
 
 export function uaNodeRouteVariable(nodeId) {
   return {
-    title: 'UANode',
+    title: 'UANodeVariable',
     Component: MyUANode(
     	[
-    		UANodeNavBar(nodeId, 'third')
-      ], [
+        UANodeNavBar(nodeId, 'variable'),
     		UANodeName,
         DataValue
     	]
@@ -77,30 +77,27 @@ export function uaNodeRouteVariable(nodeId) {
   };
 }
 
-export function uaNodeRoute3(nodeId) {
+export function uaNodeRouteBackward(nodeId) {
   return {
-    title: 'UANode',
+    title: 'UANodeBackward',
     Component: MyUANode(
     	[
-    		UANodeNavBar(nodeId, 'fourth')
-      ], [
+        UANodeNavBar(nodeId, 'backward'),
     		UANodeName,
     		UANodeDescription,
         BackwardMenu
-    		
     	]
     ),
     queryConfig: new queryConfigs.UaNodeQuery({nodeId})
   };
 }
 
-export function uaNodeRoute4(nodeId) {
+export function uaNodeRouteForward(nodeId) {
   return {
-    title: 'UANode',
+    title: 'UANodeForward',
     Component: MyUANode(
     	[
-    		UANodeNavBar(nodeId, 'fifth')
-       ], [
+        UANodeNavBar(nodeId, 'forward'),
     		UANodeName,
     		UANodeDescription,
         ForwardMenu

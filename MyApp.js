@@ -11,7 +11,7 @@ import React, {
 
  import relayRenderScene from './util/relayRenderScene';
 
-import {uaNodeRoute} from './navigatorRoutes';
+import {uaNodeRouteSummary} from './navigatorRoutes';
 
 var styles = StyleSheet.create({
   container: {
@@ -24,7 +24,7 @@ export default class MyApp extends Component {
   render() {
 
     // Just imagine we're getting loggedInUserID from some other part of the app.
-    const initialRoute = uaNodeRoute('ns=4;i=1240');
+    const initialRoute = uaNodeRouteSummary('ns=4;i=1240');
     
 
     return (

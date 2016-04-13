@@ -16,59 +16,25 @@ import {createContainer} from 'recompose-relay';
 import {compose} from 'recompose';
 
 
-import {uaNodeRoute, uaNodeRoute1, uaNodeRouteVariable, uaNodeRoute3, uaNodeRoute4} from '../navigatorRoutes';
+import {uaNodeRouteSummary, uaNodeRouteMimic, uaNodeRouteVariable, uaNodeRouteBackward, uaNodeRouteForward} from '../navigatorRoutes';
 
 import Tabs from 'react-native-tabs';
 
 
-var rightButtonConfig = {
-  title: 'Next',
-  handler: function onNext() {
-    alert('hello!');
-  }
-};
-
-var titleConfig = {
-  title: 'Hello, world',
-};
-
 
 
 var styles = StyleSheet.create({
-  nodeStyle : {
-    flex:1,
-     fontSize: 19,
-     fontWeight: 'bold',
-     justifyContent: 'center',
-     alignItems: 'center'
+  selectedIcon: {
+    borderTopWidth:2,borderTopColor:'red'
   },
-  nodePane : {
-    flex:1,
-     justifyContent: 'center',
-     alignItems: 'center'
+  selected: {
+    color:'red'
+  },
+  tabStyle: {
+    position: 'relative', 
+    flex:1, backgroundColor:'white'
   }
 });
-
-var styles2 = StyleSheet.create({
-  container: {
-    marginTop:45,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
 
 
 
@@ -92,38 +58,44 @@ const frags =  {
 const getNav = (navigator, nodeId)=>
   (el)=> {
     switch(el.props.name) {
-      case 'first':
-        return navigator.replace(uaNodeRoute(nodeId));
-      case 'second':
-        return navigator.replace(uaNodeRoute1(nodeId));
+      case 'summary':
+        return navigator.replace(uaNodeRouteSummary(nodeId));
+      case 'mimic':
+        return navigator.replace(uaNodeRouteMimic(nodeId));
       case 'variable':
         return navigator.replace(uaNodeRouteVariable(nodeId));
-      case 'fourth':
-        return navigator.replace(uaNodeRoute3(nodeId));
-      case 'fifth':
-        return navigator.replace(uaNodeRoute4(nodeId));
+      case 'backward':
+        return navigator.replace(uaNodeRouteBackward(nodeId));
+      case 'forward':
+        return navigator.replace(uaNodeRouteForward(nodeId));
     }
   }
     
 
-const UANodeNavBar = (nodeId, selected)=> compose(createContainer(frags))
+const UANodeNavBar = (nodeId, selected)=> {
+  
+  const ret = compose(createContainer(frags))
   (({root, uaNode, navigator})=>
     
-      <Tabs selected={selected} style={{position: 'relative', flex:1, backgroundColor:'white'}}
-            selectedStyle={{color:'red'}}
+      <Tabs selected={selected} 
+            style={styles.tabStyle}
+            selectedStyle={styles.selected}
+            selectedIconStyle={styles.selectedIcon}
             onSelect={
               getNav(
                 navigator,
                 nodeId
               )
             }>
-            <Text name="first">{uaNode.nodeClass}</Text>
-            <Text name="second" selectedIconStyle={{borderTopWidth:2,borderTopColor:'red'}}>Second</Text>
+            <Text name="summary">Summary</Text>
+            <Text name="mimic">Mimic</Text>
             {uaNode.nodeClass==='Variable' ? <Text name="variable">Variable</Text> : null}
-            <Text name="fourth" selectedStyle={{color:'green'}}>Fourth</Text>
-            <Text name="fifth">Fifth</Text>
+            <Text name="backward" >&lt;</Text>
+            <Text name="forward">&gt;</Text>
         </Tabs>
 
   );
-
+  ret.root=true;
+  return ret;
+}
 export default UANodeNavBar
