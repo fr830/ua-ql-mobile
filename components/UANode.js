@@ -29,11 +29,11 @@ var styles = StyleSheet.create({
   container: {
     //width: 375,
     flex: 1,
-    backgroundColor: 'purple'
+    backgroundColor: 'white'
   },
   supercontainer: {
     flex:1,
-    backgroundColor: 'green'
+    backgroundColor: 'white'
   }
 });
 

@@ -31,8 +31,9 @@ var styles = StyleSheet.create({
     color:'red'
   },
   tabStyle: {
-    position: 'relative', 
-    flex:1, backgroundColor:'white'
+    position: 'relative',
+    flex:1,
+    backgroundColor:'lightblue'
   }
 });
 
