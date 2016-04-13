@@ -53,7 +53,7 @@ const ReferenceMenu = (frags, align, routeFunc)=>
                 referenceDescriptions = {uaNode.references.edges}
                 navigator = {navigator}
                 routeFunc={routeFunc}
-                header = {<Text>&lt;&lt;</Text>}/>
+               />
            </ScrollView>
           : <View/>
        }
