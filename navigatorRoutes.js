@@ -2,8 +2,8 @@ import * as queryConfigs from './queries/queryConfigs';
 import UANode from './components/UANode';
 import UANodeName from './components/UANodeName';
 import UANodeClass from './components/UANodeClass';
-import UANodeMethods from './components/UANodeMethods';
-import UANodeExecute from './components/UANodeExecute';
+import UANodeMethods from './components/mimics/UANodeMethods';
+import UANodeExecute from './components/mimics/UANodeExecute';
 import UANodeNamespace from './components/UANodeNamespace';
 import UANodeType from './components/UANodeType';
 import UANodeDescription from './components/UANodeDescription';
@@ -11,7 +11,7 @@ import DataValue from './components/DataValue';
 import UANodeNavBar from './components/UANodeNavBar';
 import BackwardMenu from './components/BackwardMenu';
 import ForwardMenu from './components/ForwardMenu';
-import Mimic from './components/Mimic';
+import Boiler from './components/mimics/Boiler';
 
 
 const globalMenuState = {
@@ -83,7 +83,7 @@ export function uaNodeRouteMimic(nodeId, name) {
     	[
         UANodeName,
     		UANodeDescription,
-        Mimic
+        Boiler
     	]
     ),
     queryConfig: new queryConfigs.UaNodeQuery({nodeId})
