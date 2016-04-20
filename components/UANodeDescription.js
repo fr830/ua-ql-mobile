@@ -20,9 +20,6 @@ var styles = StyleSheet.create({
   textStyle : {
     fontSize: 15,
     fontStyle: 'italic'
-  },
-  viewStyle : {
-    alignItems: 'center'
   }
 });
 
@@ -41,13 +38,10 @@ const frags =  {
 
 const UANodeDescription = compose(createContainer(frags))
   (({uaNode})=>
-    <View 
-      style={styles.viewStyle}>
-       <Text
-        style={styles.textStyle}>
-        {uaNode.description ? uaNode.description.text : ''}
-      </Text>
-    </View>
+    <Text
+      style={styles.textStyle}>
+      {uaNode.description ? uaNode.description.text : ''}
+    </Text>
   );
 
 export default UANodeDescription

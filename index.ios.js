@@ -15,7 +15,8 @@ import MyApp from './MyApp';
 
 
 Relay.injectNetworkLayer(
-  new Relay.DefaultNetworkLayer('https://ua-ql.herokuapp.com/graphql')
+  //new Relay.DefaultNetworkLayer('https://ua-ql.herokuapp.com/graphql')
+   new Relay.DefaultNetworkLayer('http://localhost:3002/graphql')
 );
 
 

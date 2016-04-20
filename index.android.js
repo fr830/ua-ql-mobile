@@ -13,9 +13,9 @@ import Relay from 'react-relay';
 import MyApp from './MyApp';
 
 
-
 Relay.injectNetworkLayer(
-  new Relay.DefaultNetworkLayer('https://ua-ql.herokuapp.com/graphql')
+  //new Relay.DefaultNetworkLayer('https://ua-ql.herokuapp.com/graphql')
+  new Relay.DefaultNetworkLayer('http://192.168.56.1:3002/graphql')
 );
 
 

@@ -11,9 +11,6 @@ import {compose} from 'recompose';
 var styles = StyleSheet.create({
   textStyle : {
     fontSize: 12
-  },
-  viewStyle : {
-    alignItems: 'center'
   }
 });
 
@@ -29,13 +26,10 @@ const frags =  {
 
 const UANodeClass = compose(createContainer(frags))
   (({uaNode})=>
-    <View
-      style={styles.viewStyle}>
-      <Text
-        style = {styles.textStyle}>
-        {uaNode.nodeClass}
-      </Text>
-    </View>
+    <Text
+      style = {styles.textStyle}>
+      {uaNode.nodeClass}
+    </Text>
   );
 
 export default UANodeClass

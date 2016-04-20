@@ -12,7 +12,7 @@ const frags = (links) => ({
   fragments: {
     uaNode: ()=> Relay.QL`
       fragment on UANode {
-        references(first:10 browseDirection: Inverse) @include(if: $dodisplay) {
+        references(first:50 browseDirection: Inverse) @include(if: $dodisplay) {
           edges {
             ${links.getFragment('referenceDescriptions')}
           }

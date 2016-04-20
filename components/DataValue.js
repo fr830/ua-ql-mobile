@@ -36,7 +36,6 @@ const DataValue = compose(
     ),
     observeProps(props$=>{
       const uaNode = props$.map(p=>p.uaNode)
-      console.log('observing props');
       return {
         uaNode,
         value: uaNode.map(v=>{

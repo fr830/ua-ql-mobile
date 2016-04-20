@@ -2,6 +2,10 @@ import * as queryConfigs from './queries/queryConfigs';
 import UANode from './components/UANode';
 import UANodeName from './components/UANodeName';
 import UANodeClass from './components/UANodeClass';
+import UANodeMethods from './components/UANodeMethods';
+import UANodeExecute from './components/UANodeExecute';
+import UANodeNamespace from './components/UANodeNamespace';
+import UANodeType from './components/UANodeType';
 import UANodeDescription from './components/UANodeDescription';
 import DataValue from './components/DataValue';
 import UANodeNavBar from './components/UANodeNavBar';
@@ -35,11 +39,15 @@ export function uaNodeRouteSummary(nodeId) {
   return {
     title: 'UANodeSummary',
     Component: MyUANode(
-    	[
+      [
         UANodeNavBar(nodeId, 'summary'),
-    		UANodeName,
+    	],
+    	[
+        UANodeName,
         UANodeClass,
-    		UANodeDescription
+    		UANodeDescription,
+        UANodeNamespace,
+        UANodeType
         
     	]
     ),
@@ -48,13 +56,32 @@ export function uaNodeRouteSummary(nodeId) {
 }
 
 
-export function uaNodeRouteMimic(nodeId) {
+export function uaNodeRouteMethods(nodeId, name) {
   return {
     title: 'UANodeMimic',
     Component: MyUANode(
+      [
+        UANodeNavBar(nodeId, name),
+    	],
     	[
-        UANodeNavBar(nodeId, 'mimic'),
-    		UANodeName,
+        UANodeName,
+    		UANodeMethods
+    	]
+    ),
+    queryConfig: new queryConfigs.UaNodeQuery({nodeId})
+  };
+}
+
+
+export function uaNodeRouteMimic(nodeId, name) {
+  return {
+    title: 'UANodeMimic',
+    Component: MyUANode(
+      [
+        UANodeNavBar(nodeId, name)
+    	],
+    	[
+        UANodeName,
     		UANodeDescription,
         Mimic
     	]
@@ -63,27 +90,46 @@ export function uaNodeRouteMimic(nodeId) {
   };
 }
 
-export function uaNodeRouteVariable(nodeId) {
+export function uaNodeRouteVariable(nodeId, name) {
   return {
     title: 'UANodeVariable',
     Component: MyUANode(
+      [
+        UANodeNavBar(nodeId, name),
+    	],
     	[
-        UANodeNavBar(nodeId, 'variable'),
-    		UANodeName,
+        UANodeName,
         DataValue
     	]
     ),
     queryConfig: new queryConfigs.UaNodeQuery({nodeId})
   };
 }
+export function uaNodeRouteExecute(nodeId, name) {
+  return {
+    title: 'UANodeExecute',
+    Component: MyUANode(
+      [
+        UANodeNavBar(nodeId, name)
+    	],
+    	[
+        UANodeName,
+        UANodeExecute
+    	]
+    ),
+    queryConfig: new queryConfigs.UaNodeQuery({nodeId})
+  };
+}
 
-export function uaNodeRouteBackward(nodeId) {
+export function uaNodeRouteBackward(nodeId, name) {
   return {
     title: 'UANodeBackward',
     Component: MyUANode(
+      [
+        UANodeNavBar(nodeId, name)
+    	],
     	[
-        UANodeNavBar(nodeId, 'backward'),
-    		UANodeName,
+        UANodeName,
     		UANodeDescription,
         BackwardMenu
     	]
@@ -92,16 +138,17 @@ export function uaNodeRouteBackward(nodeId) {
   };
 }
 
-export function uaNodeRouteForward(nodeId) {
+export function uaNodeRouteForward(nodeId, name) {
   return {
     title: 'UANodeForward',
     Component: MyUANode(
+      [
+        UANodeNavBar(nodeId, name),
+    	],
     	[
-        UANodeNavBar(nodeId, 'forward'),
-    		UANodeName,
+        UANodeName,
     		UANodeDescription,
         ForwardMenu
-    		
     	]
     ),
     queryConfig: new queryConfigs.UaNodeQuery({nodeId})

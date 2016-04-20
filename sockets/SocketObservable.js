@@ -10,7 +10,8 @@ class SocketObservable {
   constructor() {
   	const observable = new rx.ReplaySubject(1);
     this.nextSocket=()=> observable.where((s: any)=>s).take(1);
-    const socket = io.connect('https://ua-ql.herokuapp.com/', {path: '/napi/socket.io', jsonp: false, transports: ['websocket']});
+    //const socket = io.connect('https://ua-ql.herokuapp.com/', {path: '/napi/socket.io', jsonp: false, transports: ['websocket']});
+    const socket = io.connect('http://localhost:3002/', {path: '/napi/socket.io', jsonp: false, transports: ['websocket']});
     socket.on('connect', ()=>observable.onNext(socket));    
     socket.on('connect_error', (error)=>console.log('error', JSON.stringify(error, null, '\t')));  
     socket.on('reconnect_attempt', ()=>observable.onNext(null));

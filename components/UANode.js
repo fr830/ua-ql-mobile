@@ -34,15 +34,18 @@ var styles = StyleSheet.create({
   supercontainer: {
     flex:1,
     backgroundColor: 'white'
+  },
+  viewStyle : {
+    alignItems: 'center'
   }
 });
 
-
-const frags = (SubComponents)  => ({
+const frags = (HeaderComponents, SubComponents)  => ({
   fragments: {
     root: ()=>Relay.QL`
       fragment on UANode {
         id
+        ${HeaderComponents.filter(s=>s.root).map(s=>s.getFragment('root'))}
         ${SubComponents.filter(s=>s.root).map(s=>s.getFragment('root'))}
       }
     `,
@@ -50,6 +53,7 @@ const frags = (SubComponents)  => ({
       fragment on UANode {
         ${ForwardMenu.getFragment('uaNode')}
         ${BackwardMenu.getFragment('uaNode')}
+        ${HeaderComponents.map(s=>s.getFragment('uaNode'))}
         ${SubComponents.map(s=>s.getFragment('uaNode'))}
         backwardReferences: references(first:10 browseDirection: Inverse) {
           edges {
@@ -69,9 +73,9 @@ const frags = (SubComponents)  => ({
 
 
 const UANode = (globalMenuState)=>{
-  return (SubComponents) => {
+  return (HeaderComponents, SubComponents) => {
     return compose(
-      createContainer(frags(SubComponents)) ,
+      createContainer(frags(HeaderComponents, SubComponents)) ,
       withState('menuRightStart', 'setMenuRightStart', false),
       withState('menuLeftStart', 'setMenuLeftStart', false)
     )
@@ -101,7 +105,14 @@ const UANode = (globalMenuState)=>{
              <View style = {styles.supercontainer}>
               <ScrollView style={{flex:1}}>
                 <View style = {styles.container}>
-                  {SubComponents.map((S, i)=> <S key={i} root={root} uaNode={uaNode} navigator={navigator}/>)}
+                  {HeaderComponents.map((S, i)=>
+                    <S key={i} root={root} uaNode={uaNode} navigator={navigator}/>
+                  )}
+                  {SubComponents.map((S, i)=>
+                    <View key={i} style={styles.viewStyle}>  
+                      <S root={root} uaNode={uaNode} navigator={navigator}/>
+                    </View>
+                  )}
                 </View>
               </ScrollView>
             </View>

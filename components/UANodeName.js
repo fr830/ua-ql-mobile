@@ -12,9 +12,6 @@ var styles = StyleSheet.create({
   textStyle : {
     fontSize: 19,
     fontWeight: 'bold'
-  },
-  viewStyle : {
-    alignItems: 'center'
   }
 });
 
@@ -32,13 +29,10 @@ const frags =  {
 
 const UANodeName = compose(createContainer(frags))
   (({uaNode})=>
-    <View
-      style={styles.viewStyle}>
-      <Text
-        style = {styles.textStyle}>
-        {uaNode.displayName.text}
-      </Text>
-    </View>
+    <Text
+      style = {styles.textStyle}>
+      {uaNode.displayName.text}
+    </Text>
   );
 
 export default UANodeName
